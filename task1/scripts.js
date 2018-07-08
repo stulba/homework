@@ -3,7 +3,7 @@ const userName = prompt('Please, enter your name', '')
 // Handle User Name
 function handleUserName(name) {
   if (containsAnNumber(name)) {
-    return evenLetterToUpperCase(name)
+    return everySecondToUpperCase(name)
   }
 
   return reverseString(name)
@@ -31,11 +31,11 @@ function reverseString(str) {
 }
 
 // Capitalizing every even letter in a string
-function evenLetterToUpperCase(str) {
+function everySecondToUpperCase(str) {
   let result = ''
 
   for (let i = 0; i < str.length; i++) {
-    if (i % 2) {
+    if (i % 2 === 0) {
       result += str[i].toUpperCase()
     } else {
       result += str[i]
