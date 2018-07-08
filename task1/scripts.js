@@ -2,11 +2,11 @@ const userName = prompt('Please, enter your name', '')
 
 // Handle User Name
 function handleUserName(name) {
-  if (!containsAnNumber(name)) {
-    return reverseString(name)
+  if (containsAnNumber(name)) {
+    return evenLetterToUpperCase(name)
   }
 
-  return evenLetterToUpperCase(name)
+  return reverseString(name)
 }
 
 
@@ -15,11 +15,14 @@ function handleUserName(name) {
 
 // Checks if a string contains a Number
 function containsAnNumber(str) {
+  let result = false
   for (let i = 0; i < str.length; i++) {
     if (!isNaN(str[i])) {
-      return true
+      result = true
     }
   }
+
+  return result
 }
 
 // Reverse a string
