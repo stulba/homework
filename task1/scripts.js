@@ -18,7 +18,6 @@ function containsAnNumber(str) {
   for (let i = 0; i < str.length; i++) {
     if (!isNaN(str[i])) {
       return true
-      break
     }
   }
 }
