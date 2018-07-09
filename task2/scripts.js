@@ -14,7 +14,6 @@ btn2.onclick = function() {
 
 // Create and visualise Human object
 btn3.onclick = function() {
-  // Create
   const human = {
     firstname: 'Siarhei',
     lastname: 'Stulba',
@@ -23,7 +22,6 @@ btn3.onclick = function() {
     married: false,
   }
 
-  // Visualise
   const list = document.createElement('ul')
 
   for (let key in human) {

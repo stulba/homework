@@ -1,21 +1,9 @@
-const userName = prompt('Please, enter your name', '')
-
-// Handle User Name
-function handleUserName(name) {
-  if (containsAnNumber(name)) {
-    return everySecondToUpperCase(name)
-  }
-
-  return reverseString(name)
-}
-
-
-
 /* Utilities */
 
 // Checks if a string contains a Number
-function containsAnNumber(str) {
+function containsNumber(str) {
   let result = false
+  
   for (let i = 0; i < str.length; i++) {
     if (!isNaN(str[i])) {
       result = true
@@ -30,7 +18,7 @@ function reverseString(str) {
   return str.split('').reverse().join('')
 }
 
-// Capitalizing every even letter in a string
+// Capitalizing every second letter in a string
 function everySecondToUpperCase(str) {
   let result = ''
 
@@ -43,6 +31,21 @@ function everySecondToUpperCase(str) {
   }
 
   return result
+}
+
+
+
+
+
+const userName = prompt('Please, enter your name', '')
+
+// Handle User Name
+function handleUserName(name) {
+  if (containsNumber(name)) {
+    return everySecondToUpperCase(name)
+  }
+
+  return reverseString(name)
 }
 
 document.write(handleUserName(userName))
