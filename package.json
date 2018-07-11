@@ -1,0 +1,8 @@
+{
+  "name": "homework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/stulba/homework.git",
+  "author": "Siarhei Stulba <siarhei.stulba@gmail.com>",
+  "license": "MIT"
+}
