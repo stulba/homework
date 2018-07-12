@@ -27,6 +27,10 @@ function hasNumber(str) {
   return result;
 }
 
+function isEven(num) {
+  return num % 2 === 0;
+}
+
 function reverseString(str) {
   return str.split('').reverse().join('');
 }
@@ -35,7 +39,7 @@ function toUpperCase(str) {
   let result = '';
 
   for (let i = 0; i < str.length; i++) {
-    if (i % 2 === 0) {
+    if (isEven(i)) {
       result += str[i].toUpperCase();
     } else {
       result += str[i];
