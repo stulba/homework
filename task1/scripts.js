@@ -1,7 +1,21 @@
+const userName = prompt('Please, enter your name', '');
+
+function handleUserName(name) {
+	if (hasNumber(name)) {
+		return toUpperCase(name);
+	}
+
+	return reverseString(name);
+}
+
+document.write(handleUserName(userName));
+
+
+
+
 /* Utilities */
 
-// Checks if a string contains a Number
-function containsNumber(str) {
+function hasNumber(str) {
 	let result = false;
 
 	for (let i = 0; i < str.length; i++) {
@@ -13,12 +27,10 @@ function containsNumber(str) {
 	return result;
 }
 
-// Reverse a string
 function reverseString(str) {
 	return str.split('').reverse().join('');
 }
 
-// Capitalizing every second letter in a string
 function toUpperCase(str) {
 	let result = '';
 
@@ -32,16 +44,3 @@ function toUpperCase(str) {
 
 	return result;
 }
-
-const userName = prompt('Please, enter your name', '');
-
-// Handle User Name
-function handleUserName(name) {
-	if (containsNumber(name)) {
-		return toUpperCase(name);
-	}
-
-	return reverseString(name);
-}
-
-document.write(handleUserName(userName));

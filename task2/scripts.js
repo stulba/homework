@@ -2,17 +2,14 @@ const btn1 = document.querySelector('.js-get');
 const btn2 = document.querySelector('.js-show-image');
 const btn3 = document.querySelector('.js-create-human');
 
-// Go to Google
 btn1.onclick = function () {
 	window.location = 'https://www.google.com/';
 };
 
-// Show image
 btn2.onclick = function () {
 	document.write('<img src="./image.jpg" alt="Red cat" />');
 };
 
-// Create and visualise Human object
 btn3.onclick = function () {
 	const human = {
 		firstname: 'Siarhei',
@@ -24,14 +21,14 @@ btn3.onclick = function () {
 
 	const list = document.createElement('ul');
 
-	for (let key in human) {
-		const value = human[key];
+	for (const key in human) {
 		const listItem = document.createElement('li');
+		const content = `${key}: ${human[key]}`;
 
-		listItem.textContent = `${key}: ${value}`;
+		listItem.textContent = content;
 		list.appendChild(listItem);
 
-		console.log(`${key}: ${value} `); // eslint-disable-line no-console
+		console.log(content); // eslint-disable-line no-console
 	}
 
 	document.body.appendChild(list);
