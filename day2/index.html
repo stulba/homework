@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Главная</title>
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__content container">
+      <a href="./index.html">Bank</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div>Общий баланс: 20 руб</div>
+      <h1>Все счета</h1>
+
+      <ul class="list account-links">
+        <li class="list__item">Счета</li>
+        <li class="list__item">Переводы</li>
+      </ul>
+
+      <div class="accounts">
+        <div class="account">
+          <h4 class="account__title">Основной</h4>
+          <div class="account__balance">20 руб</div>
+          <a href="./form.html">Редактировать</a>
+          <button class="js-button-delete">Удалить</button>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <a href="./form.html" class="button">Создать</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="./scripts/main.js"></script>
+</body>
+
+</html>
