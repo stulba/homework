@@ -1,14 +1,14 @@
-window.onload = function() {
+window.onload = function () {
   // Just helpers for testing purposes
   const app = {
-    renderAccounts: function() {},
-    putInStorage: function(itemName, key) {
+    renderAccounts: function () {},
+    putInStorage: function (itemName, key) {
       localStorage.setItem(key, JSON.stringify(itemName));
     },
-    getFromStorage: function(itemName) {
+    getFromStorage: function (itemName) {
       return JSON.parse(localStorage.getItem(itemName));
     },
-    getCurrentLocation: function() {
+    getCurrentLocation: function () {
       const loc = window.location.pathname;
       const lastSlashIndex = loc.lastIndexOf('/');
       return loc.substring(lastSlashIndex);
@@ -16,7 +16,7 @@ window.onload = function() {
   };
 
   if (app.getCurrentLocation() === '/index.html') {
-    document.querySelector('.js-button-delete').onclick = function() {
+    document.querySelector('.js-button-delete').onclick = function () {
       confirm('Вы уверены, что хотите удалить счет?');
     };
   }
@@ -26,7 +26,7 @@ window.onload = function() {
     const section = document.querySelector('.js-form-section');
     const typeSelector = form.commonType;
 
-    typeSelector.onchange = function() {
+    typeSelector.onchange = function () {
       if (typeSelector.value === 'накопительный') {
         section.classList.add('is-active');
         section.lastElementChild.textContent = Saving.getRate() + '%';
@@ -35,7 +35,7 @@ window.onload = function() {
       }
     };
 
-    form.onsubmit = function(e) {
+    form.onsubmit = function (e) {
       e.preventDefault();
 
       let account = {
@@ -62,7 +62,7 @@ window.onload = function() {
     };
   }
 
-  const User = function(firstname, lastname) {
+  const User = function (firstname, lastname) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.accounts = null;
@@ -87,23 +87,23 @@ window.onload = function() {
   Account.id = 0;
   Account.accounts = [];
 
-  Account.getCount = function() {
+  Account.getCount = function () {
     return this.accounts.length;
   };
 
-  Account.addAccount = function(newAccount) {
+  Account.addAccount = function (newAccount) {
     this.accounts.push(newAccount);
   };
 
-  Account.getAccount = function(id) {
+  Account.getAccount = function (id) {
     return this.accounts.find(account => account.id === id);
   };
 
-  Account.getAccounts = function() {
+  Account.getAccounts = function () {
     return this.accounts;
   };
 
-  Account.updateAccount = function(nextAccount, id) {
+  Account.updateAccount = function (nextAccount, id) {
     const prevAccountIndex = this.accounts.findIndex(
       account => account.id === id
     );
@@ -116,34 +116,34 @@ window.onload = function() {
     );
   };
 
-  Account.deleteAccount = function(id) {
+  Account.deleteAccount = function (id) {
     this.accounts = this.accounts.filter(account => account.id !== id);
   };
 
-  Account.formatDate = function(date) {
+  Account.formatDate = function (date) {
     return (
       date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
     );
   };
 
   // Common Methods
-  Account.prototype.makeIncomingTrans = function(amount) {
+  Account.prototype.makeIncomingTrans = function (amount) {
     return this.balance + amount;
   };
 
-  Account.prototype.makeOutgoingTrans = function(amount) {
+  Account.prototype.makeOutgoingTrans = function (amount) {
     return this.balance - amount;
   };
 
-  Account.prototype.getIncomingTrans = function() {
+  Account.prototype.getIncomingTrans = function () {
     return this.incomingTransfers;
   };
 
-  Account.prototype.getOutgoingTrans = function() {
+  Account.prototype.getOutgoingTrans = function () {
     return this.outgoingTransfers;
   };
 
-  Account.prototype.getState = function() {
+  Account.prototype.getState = function () {
     return this.isActive;
   };
 
@@ -154,7 +154,7 @@ window.onload = function() {
 
   Сhecking.RATE = 0.3;
 
-  Сhecking.getRate = function() {
+  Сhecking.getRate = function () {
     return this.RATE;
   };
 
@@ -168,9 +168,17 @@ window.onload = function() {
 
   Saving.RATE = 5;
 
-  Saving.getRate = function() {
+  Saving.getRate = function () {
     return Saving.RATE;
   };
 
   Saving.prototype = Object.create(Account.prototype);
+
+  Saving.prototype.getTerm = function () {
+    return this.term;
+  };
+
+  Saving.prototype.setTerm = function (term) {
+    this.term = term;
+  };
 };
