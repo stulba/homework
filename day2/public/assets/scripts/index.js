@@ -2,13 +2,10 @@ window.onload = function () {
   // Account
   const Account = function (options) {
     this.id = options.id;
-    this.owner = {
-      firstname: options.owner.firstname,
-      lastname: options.owner.lastname
-    };
+    this.owner = options.owner;
     this.type = options.type;
-    this.currency = options.currency;
-    this.balance = 0;
+    this.currency = options.currency || 'BYN';
+    this.balance = options.balance || 0;
     this.created = new Date();
   };
 
@@ -32,17 +29,12 @@ window.onload = function () {
     xhr.send();
 
     xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) return;
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const result = JSON.parse(xhr.responseText);
 
-      if (xhr.status !== 200) {
-        console.log(xhr.status + ' ' + xhr.statusText); // eslint-disable-line
-        return;
-      }
-
-      const result = JSON.parse(xhr.responseText);
-
-      if (cb && typeof cb === 'function') {
-        cb(result);
+        if (cb && typeof cb === 'function') {
+          cb(result);
+        }
       }
     };
   };
@@ -52,15 +44,6 @@ window.onload = function () {
 
     xhr.open('DELETE', '/accounts/' + id, true);
     xhr.send();
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState != 4) return;
-
-      if (xhr.status !== 200) {
-        console.log(xhr.status + ' ' + xhr.statusText); // eslint-disable-line
-        return;
-      }
-    };
   };
 
   Account.addAccount = function (newAccount) {
@@ -70,10 +53,6 @@ window.onload = function () {
 
     xhr.open('POST', '/accounts', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) return;
-    };
 
     xhr.send(newAccount);
   };
@@ -86,10 +65,6 @@ window.onload = function () {
     xhr.open('PUT', '/accounts/' + id, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) return;
-    };
-
     xhr.send(updatedAccount);
   };
 
@@ -101,6 +76,7 @@ window.onload = function () {
     return this.created.toLocaleDateString();
   };
 
+
   Account.prototype.getOwner = function () {
     return this.owner.lastname + ' ' + this.owner.firstname;
   };
@@ -109,7 +85,9 @@ window.onload = function () {
     this.balance += parseFloat(amount, 10);
   };
 
-
+  Account.prototype.getBalance = function () {
+    return this.balance;
+  };
 
 
   // Checking account
@@ -123,7 +101,6 @@ window.onload = function () {
   Сhecking.constructor = Сhecking;
 
 
-
   // Saving account
   function Saving(options) {
     Account.call(this, options);
@@ -131,7 +108,6 @@ window.onload = function () {
     this.plan = options.plan;
     this.term = options.term;
     this.RATE = 1.5;
-    this.balance = options.deposit || options.balance;
   }
 
   Saving.prototype = Object.create(Account.prototype);
@@ -139,14 +115,15 @@ window.onload = function () {
 
   Saving.prototype.getTerm = function () {
     var monthShape = 'месяцев';
+    var term = parseFloat(this.term, 10);
 
-    if (this.term === 1) {
+    if (term === 1) {
       monthShape = 'месяц';
-    } else if (this.term > 1 && this.term <= 3) {
+    } else if (term > 1 && term <= 3) {
       monthShape = 'месяца';
     }
 
-    return this.term + ' ' + monthShape;
+    return term + ' ' + monthShape;
   };
 
   var currentPage = getCurrentLocation();
@@ -160,13 +137,15 @@ window.onload = function () {
   if (currentPage === 'create.html') {
     var form = document.querySelector('.js-form');
     var checkingFields = document.querySelectorAll('.checking__fields input');
+    var savingFields = document.querySelectorAll('.saving__fields select, .saving__fields input');
 
+    // Handle fields visability and state logic
     form.type.onchange = function () {
       if (form.type.value === 'Накопительный') {
         form.className = 'form form--saving';
-        setRequired(false);
+        swapFieldsState(savingFields, checkingFields);
       } else if (form.type.value === 'Расчетный') {
-        setRequired(true);
+        swapFieldsState(checkingFields, savingFields);
         form.className = 'form form--checking';
       } else {
         form.className = 'form';
@@ -176,21 +155,29 @@ window.onload = function () {
     form.onsubmit = function (e) {
       e.preventDefault();
 
+      // Create Account with common props
       var account = Account.createAccount({
         owner: {
           firstname: this.firstname.value,
           lastname: this.lastname.value
         },
         type: this.type.value,
-        plan: this.plan.value,
-        bankName: this.bankName.value,
-        deposit: this.deposit.value,
-        currency: this.currency.value,
-        term: this.term.value,
-        pin: this.pin.value
+        currency: this.currency.value
       });
 
+      // Adding specific fields for every type of Account
+      if (account.type === 'Расчетный') {
+        account.bankName = this.bankName.value;
+        account.pin = this.pin.value;
+      } else {
+        account.plan = this.plan.value;
+        account.term = this.term.value;
+        account.balance = this.deposit.value;
+      }
+
       Account.addAccount(account);
+
+      form.reset();
     };
   }
 
@@ -209,6 +196,7 @@ window.onload = function () {
 
   function gatherAccountHtml(account) {
     account = Account.createAccount(account);
+
     var html = '<tr>' +
       '<th>Владелец</th>' +
       '<td>' + account.getOwner() + '</td>' +
@@ -391,9 +379,13 @@ window.onload = function () {
     return loc[loc.length - 1];
   }
 
-  function setRequired(state) {
-    checkingFields.forEach(function (field) {
-      field.required = state;
-    });
+  function swapFieldsState(fields1, fields2) {
+    for (var i = 0; i < fields1.length; i++) {
+      fields1[i].disabled = false
+
+      for (var ii = 0; ii < fields2.length; ii++) {
+        fields2[ii].disabled = true
+      }
+    }
   }
 };
