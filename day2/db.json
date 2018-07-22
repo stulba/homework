@@ -1,0 +1,32 @@
+{
+  "accounts": [
+    {
+      "owner": {
+        "firstname": "Сергей",
+        "lastname": "Стульба"
+      },
+      "type": "Расчетный",
+      "currency": "USD",
+      "balance": 0,
+      "created": "2018-07-21T19:58:27.132Z",
+      "bankName": "Alfa",
+      "pin": "900",
+      "id": 1
+    },
+    {
+      "owner": {
+        "firstname": "Александр",
+        "lastname": "Третьяков"
+      },
+      "type": "Накопительный",
+      "currency": "BYN",
+      "balance": "80000",
+      "created": "2018-07-21T19:59:34.411Z",
+      "plan": "Старт",
+      "term": "6",
+      "RATE": 1.5,
+      "id": 2,
+      "deposit": "75000"
+    }
+  ]
+}
