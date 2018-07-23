@@ -54,6 +54,8 @@ window.onload = function () {
     xhr.open('POST', '/accounts', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
+    xhr.upload.onload = goToHomePage;
+
     xhr.send(newAccount);
   };
 
@@ -64,6 +66,7 @@ window.onload = function () {
 
     xhr.open('PUT', '/accounts/' + id, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.upload.onload = goToHomePage;
 
     xhr.send(updatedAccount);
   };
@@ -176,8 +179,6 @@ window.onload = function () {
       }
 
       Account.addAccount(account);
-
-      form.reset();
     };
   }
 
@@ -379,12 +380,16 @@ window.onload = function () {
     return loc[loc.length - 1];
   }
 
+  function goToHomePage() {
+    window.location.href = '/';
+  }
+
   function swapFieldsState(fields1, fields2) {
     for (var i = 0; i < fields1.length; i++) {
-      fields1[i].disabled = false
+      fields1[i].disabled = false;
 
       for (var ii = 0; ii < fields2.length; ii++) {
-        fields2[ii].disabled = true
+        fields2[ii].disabled = true;
       }
     }
   }
