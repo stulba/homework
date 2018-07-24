@@ -39,9 +39,7 @@ Account.deleteAccount = function (id) {
 
   xhr.open('DELETE', '/accounts/' + id, true);
 
-  xhr.onreadystatechange = function () {
-    window.location.reload();
-  };
+  xhr.onreadystatechange = () => window.location.reload();
 
   xhr.send();
 };
@@ -53,9 +51,7 @@ Account.addAccount = function (newAccount) {
   xhr.open('POST', '/accounts', true);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-  xhr.upload.onload = function () {
-    window.location.href = '/';
-  };
+  xhr.upload.onload = () => window.location.href = '/';
 
   xhr.send(newAccount);
 };
@@ -67,9 +63,7 @@ Account.updateAccount = function (updatedAccount, id) {
   xhr.open('PUT', '/accounts/' + id, true);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-  xhr.upload.onload = function () {
-    window.location.href = '/';
-  };
+  xhr.upload.onload = () => window.location.href = '/';
 
   xhr.send(updatedAccount);
 };

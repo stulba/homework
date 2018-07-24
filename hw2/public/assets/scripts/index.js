@@ -38,7 +38,7 @@ function gatherAccountsHtml(accounts) {
       '<th>Управление</th>' +
       '</tr>';
 
-    html += accounts.reduce(function (markup, account) {
+    html += accounts.reduce((markup, account) => {
       account = Account.createAccount(account);
 
       return (markup +=
