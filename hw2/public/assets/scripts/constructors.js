@@ -1,4 +1,4 @@
-const Account = function (options) {
+var Account = function (options) {
   this.id = options.id;
   this.owner = options.owner;
   this.type = options.type;
