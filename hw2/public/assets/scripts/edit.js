@@ -1,18 +1,18 @@
 window.onload = function () {
-  var id = JSON.parse(localStorage.getItem('accountId'));
-  var form = document.querySelector('.js-form');
-  var account;
+  const id = JSON.parse(localStorage.getItem('accountId'));
+  const form = document.querySelector('.js-form');
+  let account;
 
   Account.getAccounts(function (result) {
     account = Account.createAccount(result);
 
     // Filling necessary fields with current values and make them visible as well
-    for (var key in account) {
-      var value = account[key];
-      var field = form[key];
+    for (const key in account) {
+      const value = account[key];
+      const field = form[key];
 
       if (typeof value === 'object') {
-        for (var prop in value) {
+        for (const prop in value) {
           form[prop].value = value[prop];
           form[prop].parentNode.style.display = 'block';
         }

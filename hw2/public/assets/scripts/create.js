@@ -1,10 +1,10 @@
 window.onload = function () {
-  var form = document.querySelector('.js-form');
+  const form = document.querySelector('.js-form');
 
   // Handle fields visability and state logic
   form.type.onchange = function () {
-    var checkingFields = document.querySelectorAll('.checking__fields input');
-    var savingFields = document.querySelectorAll(
+    const checkingFields = document.querySelectorAll('.checking__fields input');
+    const savingFields = document.querySelectorAll(
       '.saving__fields select, .saving__fields input'
     );
 
@@ -23,7 +23,7 @@ window.onload = function () {
     e.preventDefault();
 
     // Create basic Account with common props
-    var account = {
+    const account = {
       owner: {
         firstname: this.firstname.value,
         lastname: this.lastname.value
@@ -46,10 +46,10 @@ window.onload = function () {
   };
 
   function swapFieldsState(fields1, fields2) {
-    for (var i = 0; i < fields1.length; i++) {
+    for (let i = 0; i < fields1.length; i++) {
       fields1[i].disabled = false;
 
-      for (var ii = 0; ii < fields2.length; ii++) {
+      for (let ii = 0; ii < fields2.length; ii++) {
         fields2[ii].disabled = true;
       }
     }

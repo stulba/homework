@@ -16,14 +16,14 @@ Account.createAccount = function (account) {
 };
 
 Account.getAccounts = function (cb, id) {
-  var xhr = new XMLHttpRequest();
-  var url = id ? url = '/accounts/' + id : '/accounts';
+  const xhr = new XMLHttpRequest();
+  let url = id ? url = '/accounts/' + id : '/accounts';
 
   xhr.open('GET', url, true);
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      var result = JSON.parse(xhr.responseText);
+      const result = JSON.parse(xhr.responseText);
 
       if (cb && typeof cb === 'function') {
         cb(result);
@@ -35,7 +35,7 @@ Account.getAccounts = function (cb, id) {
 };
 
 Account.deleteAccount = function (id) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
 
   xhr.open('DELETE', '/accounts/' + id, true);
 
@@ -45,7 +45,7 @@ Account.deleteAccount = function (id) {
 };
 
 Account.addAccount = function (newAccount) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
 
   newAccount = JSON.stringify(newAccount);
   xhr.open('POST', '/accounts', true);
@@ -57,7 +57,7 @@ Account.addAccount = function (newAccount) {
 };
 
 Account.updateAccount = function (updatedAccount, id) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
 
   updatedAccount = JSON.stringify(updatedAccount);
   xhr.open('PUT', '/accounts/' + id, true);
@@ -168,8 +168,8 @@ Saving.prototype.setTerm = function (term) {
 };
 
 Saving.prototype.getTerm = function () {
-  var monthShape = 'месяцев';
-  var term = parseFloat(this.term, 10);
+  let monthShape = 'месяцев';
+  const term = parseFloat(this.term, 10);
 
   if (term === 1) {
     monthShape = 'месяц';

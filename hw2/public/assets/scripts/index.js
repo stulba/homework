@@ -1,14 +1,14 @@
 window.onload = Account.getAccounts(renderAccounts);
 
 function renderAccounts(accounts) {
-  var table = document.querySelector('.js-table');
-  var html = gatherAccountsHtml(accounts);
+  const table = document.querySelector('.js-table');
+  const html = gatherAccountsHtml(accounts);
 
   table.innerHTML = html;
 
   table.onclick = function (e) {
-    var targetText = e.target.textContent;
-    var accountId = e.target.parentNode.dataset.id;
+    const targetText = e.target.textContent;
+    const accountId = e.target.parentNode.dataset.id;
 
     if (targetText === 'Удалить') {
       if (confirm('Вы уверены, что хотите удалить счет?')) {
@@ -25,7 +25,7 @@ function renderAccounts(accounts) {
 }
 
 function gatherAccountsHtml(accounts) {
-  var html = '';
+  let html = '';
 
   if (accounts.length) {
     html +=

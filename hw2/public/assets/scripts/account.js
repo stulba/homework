@@ -1,8 +1,8 @@
 window.onload = Account.getAccounts(renderAccount, localStorage.getItem('accountId'));
 
 function renderAccount(account) {
-  var table = document.querySelector('.js-table');
-  var html = gatherAccountHtml(account);
+  const table = document.querySelector('.js-table');
+  const html = gatherAccountHtml(account);
 
   table.innerHTML = html;
 }
@@ -10,7 +10,7 @@ function renderAccount(account) {
 function gatherAccountHtml(account) {
   account = Account.createAccount(account);
 
-  var html = '<tr>' +
+  let html = '<tr>' +
     '<th>Владелец</th>' +
     '<td>' + account.getOwner() + '</td>' +
     '</tr>' +
