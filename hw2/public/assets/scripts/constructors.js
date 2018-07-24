@@ -17,7 +17,7 @@ Account.createAccount = function (account) {
 
 Account.getAccounts = function (cb, id) {
   const xhr = new XMLHttpRequest();
-  let url = id ? url = '/accounts/' + id : '/accounts';
+  let url = id ? '/accounts/' + id : '/accounts';
 
   xhr.open('GET', url, true);
 

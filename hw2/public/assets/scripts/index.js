@@ -1,10 +1,10 @@
 window.onload = Account.getAccounts(renderAccounts);
 
 function renderAccounts(accounts) {
-  const table = document.querySelector('.js-table');
-  const html = gatherAccountsHtml(accounts);
+  const table = document.createElement('table');
 
-  table.innerHTML = html;
+  table.innerHTML = gatherAccountsHtml(accounts);
+  document.body.appendChild(table);
 
   table.onclick = function (e) {
     const targetText = e.target.textContent;

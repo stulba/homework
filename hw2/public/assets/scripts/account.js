@@ -1,10 +1,10 @@
 window.onload = Account.getAccounts(renderAccount, localStorage.getItem('accountId'));
 
 function renderAccount(account) {
-  const table = document.querySelector('.js-table');
-  const html = gatherAccountHtml(account);
+  const table = document.createElement('table');
 
-  table.innerHTML = html;
+  table.innerHTML = gatherAccountHtml(account);
+  document.body.appendChild(table);
 }
 
 function gatherAccountHtml(account) {
