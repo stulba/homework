@@ -1,10 +1,17 @@
-const Account = function (options) {
-  this.id = options.id;
-  this.owner = options.owner;
-  this.type = options.type;
-  this.currency = options.currency;
-  this.balance = parseFloat(options.balance) || 0;
-  this._created = options.created || new Date();
+const Account = function ({
+  id,
+  owner,
+  type,
+  currency,
+  balance,
+  created
+} = {}) {
+  this.id = id;
+  this.owner = owner;
+  this.type = type;
+  this.currency = currency;
+  this.balance = parseFloat(balance) || 0;
+  this._created = created || new Date();
 };
 
 Account.createAccount = function (account) {
@@ -102,7 +109,11 @@ Account.prototype.setOwner = function (owner) {
 };
 
 Account.prototype.getOwner = function () {
-  return this.owner.lastname + ' ' + this.owner.firstname;
+  const {
+    firstname,
+    lastname
+  } = this.owner;
+  return lastname + ' ' + firstname;
 };
 
 Account.prototype.setBalance = function (amount) {
@@ -116,10 +127,14 @@ Account.prototype.getBalance = function () {
 
 
 
-function Сhecking(options) {
+function Сhecking({
+  bankName,
+  pin,
+  ...options
+}) {
   Account.call(this, options);
-  this.bankName = options.bankName;
-  this.pin = options.pin;
+  this.bankName = bankName;
+  this.pin = pin;
 }
 
 Сhecking.prototype = Object.create(Account.prototype);
@@ -144,11 +159,15 @@ function Сhecking(options) {
 
 
 
-function Saving(options) {
+function Saving({
+  plan,
+  term,
+  ...options
+}) {
   Account.call(this, options);
 
-  this.plan = options.plan;
-  this.term = options.term;
+  this.plan = plan;
+  this.term = term;
   this.RATE = 1.5;
 }
 

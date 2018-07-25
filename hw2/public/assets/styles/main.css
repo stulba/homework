@@ -48,6 +48,12 @@ a {
   background-color: #f67280;
 }
 
+.button:disabled {
+  color: #666;
+  cursor: default;
+  background-color: #eee;
+}
+
 .controls {
   margin-bottom: 1.5rem;
 }
@@ -92,24 +98,4 @@ td {
   font-size: inherit;
   padding: .5rem 1rem;
   border: 1px solid #ddd;
-}
-
-.common__fields,
-.saving__fields,
-.checking__fields {
-  display: none;
-}
-
-.form--saving .common__fields,
-.form--saving .saving__fields {
-  display: block;
-}
-
-.form--checking .common__fields,
-.form--checking .checking__fields {
-  display: block;
-}
-
-.form--edit .form__group {
-  display: none;
 }
