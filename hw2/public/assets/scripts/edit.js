@@ -8,7 +8,7 @@ window.onload = function () {
   function renderFields(account) {
     form.innerHTML = gatherFieldsHtml(account.type);
 
-    // Filling necessary fields with current values and make them visible as well
+    // Filling necessary fields with current values
     for (const key in account) {
       const value = account[key];
       const field = form[key];
