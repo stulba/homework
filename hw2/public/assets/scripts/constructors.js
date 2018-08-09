@@ -1,17 +1,10 @@
-const Account = function ({
-  id,
-  owner,
-  type,
-  currency,
-  balance,
-  created
-} = {}) {
-  this.id = id;
-  this.owner = owner;
-  this.type = type;
-  this.currency = currency;
-  this.balance = parseFloat(balance) || 0;
-  this._created = created || new Date();
+var Account = function (options) {
+  this.id = options.id;
+  this.owner = options.owner;
+  this.type = options.type;
+  this.currency = options.currency;
+  this.balance = parseFloat(options.balance) || 0;
+  this._created = options.created || new Date();
 };
 
 Account.createAccount = function (account) {
@@ -23,14 +16,14 @@ Account.createAccount = function (account) {
 };
 
 Account.getAccounts = function (cb, id) {
-  const xhr = new XMLHttpRequest();
-  let url = id ? '/accounts/' + id : '/accounts';
+  var xhr = new XMLHttpRequest();
+  var url = id ? '/accounts/' + id : '/accounts';
 
   xhr.open('GET', url, true);
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      const result = JSON.parse(xhr.responseText);
+      var result = JSON.parse(xhr.responseText);
 
       if (cb && typeof cb === 'function') {
         cb(result);
@@ -42,35 +35,41 @@ Account.getAccounts = function (cb, id) {
 };
 
 Account.deleteAccount = function (id) {
-  const xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
 
   xhr.open('DELETE', '/accounts/' + id, true);
 
-  xhr.onreadystatechange = () => window.location.reload();
+  xhr.onreadystatechange = function () {
+    window.location.reload();
+  };
 
   xhr.send();
 };
 
 Account.addAccount = function (newAccount) {
-  const xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
 
   newAccount = JSON.stringify(newAccount);
   xhr.open('POST', '/accounts', true);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-  xhr.upload.onload = () => window.location.href = '/';
+  xhr.upload.onload = function () {
+    window.location.href = '/';
+  };
 
   xhr.send(newAccount);
 };
 
 Account.updateAccount = function (updatedAccount, id) {
-  const xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
 
   updatedAccount = JSON.stringify(updatedAccount);
   xhr.open('PUT', '/accounts/' + id, true);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-  xhr.upload.onload = () => window.location.href = '/';
+  xhr.upload.onload = function () {
+    window.location.href = '/';
+  };
 
   xhr.send(updatedAccount);
 };
@@ -109,11 +108,7 @@ Account.prototype.setOwner = function (owner) {
 };
 
 Account.prototype.getOwner = function () {
-  const {
-    firstname,
-    lastname
-  } = this.owner;
-  return lastname + ' ' + firstname;
+  return this.owner.lastname + ' ' + this.owner.firstname;
 };
 
 Account.prototype.setBalance = function (amount) {
@@ -127,14 +122,10 @@ Account.prototype.getBalance = function () {
 
 
 
-function Сhecking({
-  bankName,
-  pin,
-  ...options
-}) {
+function Сhecking(options) {
   Account.call(this, options);
-  this.bankName = bankName;
-  this.pin = pin;
+  this.bankName = options.bankName;
+  this.pin = options.pin;
 }
 
 Сhecking.prototype = Object.create(Account.prototype);
@@ -159,15 +150,11 @@ function Сhecking({
 
 
 
-function Saving({
-  plan,
-  term,
-  ...options
-}) {
+function Saving(options) {
   Account.call(this, options);
 
-  this.plan = plan;
-  this.term = term;
+  this.plan = options.plan;
+  this.term = options.term;
   this.RATE = 1.5;
 }
 
@@ -187,8 +174,8 @@ Saving.prototype.setTerm = function (term) {
 };
 
 Saving.prototype.getTerm = function () {
-  let monthShape = 'месяцев';
-  const term = parseFloat(this.term, 10);
+  var monthShape = 'месяцев';
+  var term = parseFloat(this.term, 10);
 
   if (term === 1) {
     monthShape = 'месяц';
