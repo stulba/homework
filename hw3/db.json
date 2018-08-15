@@ -1,3 +1,17 @@
 {
-  "accounts": []
+  "accounts": [
+    {
+      "id": 1,
+      "owner": {
+        "firstname": "Sergey",
+        "lastname": "Stulba"
+      },
+      "type": "Расчетный",
+      "currency": "USD",
+      "balance": 0,
+      "_created": "2018-08-13T19:41:57.131Z",
+      "bankName": "Alfa",
+      "pin": "7878"
+    }
+  ]
 }
